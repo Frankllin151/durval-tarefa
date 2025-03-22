@@ -32,13 +32,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                    Inicio
                                 </NavLink>
-
-                                <NavLink
-                                     href={route('criarbot')}
-                                     active={route().current('criarbot')}
-                                >
-                                  Criar bot
-                                </NavLink>
                             </div>
                         </div>
 

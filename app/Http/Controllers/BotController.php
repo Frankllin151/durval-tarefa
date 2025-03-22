@@ -8,8 +8,8 @@ use Inertia\Inertia;
 class BotController extends Controller
 {
     //
-    public function Createbot()
+    public function createBot(Request $request)
     {
-        return Inertia::render("CriarBot");
+        dd($request->all());
     }
 }
