@@ -15,13 +15,13 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware("auth")->group(function (){
+Route::get('/dashboard', [BotController::class, "dashBoard"])->name('dashboard');
 Route::post("/dashboard/postcreatebot" , [BotController::class, "createBot"])->name("Postcreatebot");
 Route::get("/dashboard/detalhesbot/{id_user}/{id}", [BotController::class, "botDetalhes"])->name("botdetalhes");
+Route::get("/dashboard/knowbot/{id_user}/{id}", [BotController::class, "knowBotCreate"])->name("knowbot");
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

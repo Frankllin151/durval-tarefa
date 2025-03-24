@@ -12,6 +12,13 @@ use OpenAI\Client;
 class BotController extends Controller
 {
     //
+    public function dashBoard()
+  {
+    $user = Auth::user();
+    $bots = Bot::where("user_id", $user->id)->get();
+
+    return Inertia::render('Dashboard' , ["bots" => $bots]); 
+  }
     public function createBot(Request $request)
     {
    $apiOpenIa = config("services.api_openia");
@@ -50,6 +57,30 @@ return redirect()->route("botdetalhes", ["id_user" => $user_id->id , "id" => $id
   if(!$bot){
     return response()->json(['error' => 'Bot não encontrado'], 404);
   }
-  dd($bot);
+
+  return Inertia::render("Bot", ["bot" => $bot]);
+ }
+
+ public function knowBotCreate($idUser, $idbot)
+ {
+  // Verifica se o usuário logado é o mesmo do parâmetro
+  if (Auth::id() !== (int) $idUser) {
+    return response()->json(["error" => "Usuário não autorizado"], 403);
+}
+
+// Verifica se o bot pertence ao usuário
+$bot = Bot::where('id', $idbot)
+    ->where('user_id', $idUser)
+    ->first();
+
+if (!$bot) {
+    return response()->json(["error" => "Bot não encontrado ou não pertence ao usuário"], 404);
+}
+  $dados = [
+ "id_User" => $idUser, 
+ "id_bot" => $idbot
+  ];
+
+  return Inertia::render("KnowBot", ["dados_ids" => $dados]);
  }
 }

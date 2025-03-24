@@ -18,7 +18,6 @@ const value = e.target.value;
 
 SetNameBotValue(value)
 }
-console.log(NameBotValue);
 
 const submitHandleCriarBot = (e) =>{
   e.preventDefault();
