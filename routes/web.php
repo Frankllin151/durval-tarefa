@@ -21,6 +21,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware("auth")->group(function (){
 Route::post("/dashboard/postcreatebot" , [BotController::class, "createBot"])->name("Postcreatebot");
+Route::get("/dashboard/detalhesbot/{id_user}/{id}", [BotController::class, "botDetalhes"])->name("botdetalhes");
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

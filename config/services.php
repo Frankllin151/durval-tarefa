@@ -13,7 +13,9 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-
+    'api_openia' => [
+        'key' => env("API_KEY_OPENIA")
+    ],
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
