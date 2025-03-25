@@ -5,9 +5,9 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import TextArea from "./TextArea";
 import { router } from "@inertiajs/react";
-export default function CreateBot()
+export default function CreateBot({ModalCreateBot, SetModalCreateBot})
 {
-const [ModalCreateBot, SetModalCreateBot] = useState(false);
+
 const [NameBotValue , SetNameBotValue] = useState("");
 
 const handleModalOpen = () =>{
