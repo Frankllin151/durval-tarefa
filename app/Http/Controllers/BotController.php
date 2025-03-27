@@ -83,4 +83,9 @@ if (!$bot) {
 
   return Inertia::render("KnowBot", ["dados_ids" => $dados]);
  }
+ public function KnowFilePDFDoc(Request $request)
+ {
+  $uploadPath = public_path('uploads');
+  dd($request->all());
+ }
 }
