@@ -47,7 +47,8 @@ if(values.files.length === 0){
     // Faz a requisição usando o Inertia
     router.post('/dashboard/know-post', values, {
     onSuccess: () => {
-      alert('Arquivos enviados com sucesso!');
+     console.log(" Arquivos enviados com sucesso!");
+     
       setValues({
         id_user: dadosIds.id_User,
         id_bot: dadosIds.id_bot,

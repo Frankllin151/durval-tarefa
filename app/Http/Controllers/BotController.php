@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bot;
+use App\Models\BotFiles;
 use Inertia\Inertia;
 use OpenAI;
 use OpenAI\Client; 
@@ -85,7 +86,31 @@ if (!$bot) {
  }
  public function KnowFilePDFDoc(Request $request)
  {
-  $uploadPath = public_path('uploads');
-  dd($request->all());
+ $request->validate([
+ 'id_user' => 'required|exists:users,id', 
+ 'id_bot' => 'required|exists:bots,id',  
+ 'files' => 'required|array',
+  'files.*' => 'file|mimes:pdf,doc,docx|max:102400',
+ ]);
+ $uploadPath = public_path("uploads");
+ foreach ($request->file('files') as $file) {
+  // Gera um nome único para o arquivo
+  $uniqueFileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+  // Move o arquivo para a pasta uploads
+  $file->move($uploadPath, $uniqueFileName);
+
+  // Identifica o tipo de arquivo
+  $fileType = $file->getClientOriginalExtension();
+
+  // Salva os dados na tabela bot_files
+  BotFiles::create([
+    'user_id' => $request->input('id_user'),
+    'bot_id' => $request->input('id_bot'),
+    'caminho_arquivo' => 'uploads/' . $uniqueFileName,
+    'file_type' => $fileType,
+]);
+} 
+ return redirect()->route("botdetalhes",  ["id_user" =>$request->input('id_user'), "id" => $request->input('id_bot')]);
  }
 }

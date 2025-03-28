@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BotController;
+use App\Http\Controllers\PromptBotController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +24,8 @@ Route::post("/dashboard/postcreatebot" , [BotController::class, "createBot"])->n
 Route::get("/dashboard/detalhesbot/{id_user}/{id}", [BotController::class, "botDetalhes"])->name("botdetalhes");
 Route::get("/dashboard/knowbot/{id_user}/{id}", [BotController::class, "knowBotCreate"])->name("knowbot");
 Route::post("/dashboard/know-post",[BotController::class,"KnowFilePDFDoc"])->name("KnowPost");
+Route::get("/dashboard/prompt/{id_user}/{id}" , [PromptBotController::class, "promPt"])->name("prompt");
+Route::post("/dashboard/prompt", [PromptBotController::class, "returnoPrompt"])->name("returno");
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
